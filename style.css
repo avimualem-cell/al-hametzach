@@ -32,3 +32,14 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 .lists{display:flex;gap:12px;max-width:700px;margin:auto;text-align:right}.lists>div{flex:1;background:#fff;color:#222;border-radius:18px;padding:10px}
 .lists ul{margin:0;padding-right:18px;font-size:1.1rem}
 #rotate{display:none}
+
+.board div{display:flex;flex-direction:column;align-items:center;border:3px solid transparent}.board div b{font-size:1.8rem}.board div small{font-size:.75rem;color:#6a3df0}
+.board .lead{border-color:#f5b700;box-shadow:0 0 12px #f5b70099}.rnd{text-align:center;font-size:.85rem;color:#666;margin-top:4px}
+#board2 .board,#board2 .rnd{max-width:700px;margin:10px auto 0}#board2 .rnd{color:#fff}
+#sumSub{font-size:1.3rem;font-weight:800}.big2{font-size:1.6rem;font-weight:900;margin-top:10px}
+.cta.small{font-size:1.1rem;padding:10px 24px;display:block;margin:12px auto}
+#win{text-align:center;color:#fff}#winList{list-style:none;padding:0;max-width:500px;margin:12px auto}
+#winList li{display:flex;justify-content:space-between;background:#fff;color:#222;border-radius:16px;padding:12px 18px;margin:8px 0;font-size:1.3rem;font-weight:800}
+#winList li.lead{background:#ffe066}#win .link{color:#fff}
+.grid button.mix{background:linear-gradient(135deg,#6a3df0,#ff5c8a,#ff9a3c)}
+#win .huge{font-size:4rem;margin-top:4px}
