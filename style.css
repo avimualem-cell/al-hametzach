@@ -43,3 +43,4 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 #winList li.lead{background:#ffe066}#win .link{color:#fff}
 .grid button.mix{background:linear-gradient(135deg,#6a3df0,#ff5c8a,#ff9a3c)}
 #win .huge{font-size:4rem;margin-top:4px}
+.logo{display:block;width:clamp(90px,22vmin,150px);height:auto;margin:0 auto 8px;border-radius:22%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
