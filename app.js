@@ -8,7 +8,7 @@ try{Object.assign(S,JSON.parse(localStorage.hu||'{}'))}catch(e){}
 const save=()=>{const{cat,...o}=S;localStorage.hu=JSON.stringify(o)};
 const getJ=(k,d)=>{try{return JSON.parse(localStorage[k])||d}catch(e){return d}};
 let BEST=getJ('huBest',{}),CUSTOM=getJ('huCustom',[]);
-const T={he:{
+const T={he:{pause:'⏸ עצירה',resume:'▶ המשך',exit:'✖ יציאה',exitQ:'לצאת מהסבב?',paused:'המשחק בהפסקה',
  title:'על המצח!',sub:'משחק ניחושים משפחתי',mode:'מצב משחק',pic:'🖼️ תמונות',kids:'לקטנים',word:'🔤 מילים',age:'קבוצת גיל',modesT:'🎭 מצבי משחק',catsT:'📚 קטגוריות',
  showLabel:'להציג מילה מתחת לתמונה',time:'זמן לסיבוב',sec:"שנ'",teams:'קבוצות',solo:'שחקן יחיד',endGame:'🏆 סיום משחק והכרזת מנצח',reset:'איפוס ניקוד',
  pickCat:'בחרו קטגוריה',settings:'הגדרות',lang:'שפה',sound:'🔊 צלילים ורטט',invert:'הפוך כיוון הטיה',tutorial:'❓ איך משחקים',restore:'שחזור רכישות',
@@ -27,7 +27,7 @@ en:{
  title:'Heads Up Family!',sub:'A family guessing game',mode:'Game mode',pic:'🖼️ Pictures',kids:'for little ones',word:'🔤 Words',age:'Age group',modesT:'🎭 Game modes',catsT:'📚 Categories',
  showLabel:'Show word under the picture',time:'Round time',sec:'s',teams:'Teams',solo:'Single player',endGame:'🏆 End game & announce winner',reset:'Reset scores',
  pickCat:'Pick a category',settings:'Settings',lang:'Language',sound:'🔊 Sound & vibration',invert:'Reverse tilt direction',tutorial:'❓ How to play',restore:'Restore purchases',
- help:'Hold the phone sideways on your forehead. Tilt down = ✅ correct, tilt up = ⏭️ skip. You can also tap the buttons.',
+ pause:'⏸ Pause',resume:'▶ Resume',exit:'✖ Exit',exitQ:'Exit this round?',paused:'Paused',help:'Hold the phone sideways on your forehead. Tilt down = ✅ correct, tilt up = ⏭️ skip. You can also tap the buttons.',
  placeOn:'Put the phone on your forehead and tap',go:'Start! ▶',back:'Back',gogo:'GO!',skip:'Skip',ok:'Correct',
  guessed:'✅ Guessed',skipped:'⏭️ Skipped',next:'Next turn ▶',again:'Play again ▶',endShort:'🏆 End game',menu:'Menu',
  newGame:'New game (reset) 🔄',winHome:'Back to menu without reset',timeUp:"Time's up! ⏰",ready:'Ready?',turnOf:'Turn: ',nextUp:'Next up: ',
@@ -125,8 +125,16 @@ async function lockLand(){try{await document.documentElement.requestFullscreen?.
 function pick(k){S.cat=k;$('#readyTeam').textContent=(S.teams>1?t('turnOf')+S.names[S.cur]:t('ready'))+' '+catIcon(k);$('#readyCat').textContent=catName(k);$('#readyHint').textContent=MODES[k]?MODES[k].hint[LI()]:'';show('ready')}
 $('#back1').onclick=()=>show('home');
 $('#go').onclick=async()=>{beep(1,.01);await askMotion();lockLand();countdown()};
-function countdown(){show('count');let n=3;const el=$('#countNum');const step=()=>{if(n===0){el.textContent=t('gogo');beep(880,.4);setTimeout(start,600);return}
- el.textContent=n;el.style.animation='none';el.offsetHeight;el.style.animation='';beep(440);vib(50);n--;setTimeout(step,1000)};step()}
+let cdT=null,paused=false,phase='';
+function countdown(){show('count');phase='count';paused=false;ctl(true);let n=3;const el=$('#countNum');clearTimeout(cdT);const step=()=>{if(paused)return;if(n===0){el.textContent=t('gogo');beep(880,.4);cdT=setTimeout(start,600);return}
+ el.textContent=n;el.style.animation='none';el.offsetHeight;el.style.animation='';beep(440);vib(50);n--;cdT=setTimeout(step,1000)};step()}
+function ctl(on){$('#ctl').style.display=on?'flex':'none'}
+function runTick(){clearInterval(tick);tick=setInterval(()=>{if(paused)return;tLeft--;upd();if(tLeft<=5&&tLeft>0)sndTick();if(tLeft<=0)end()},1000)}
+function pauseGame(){if(paused||(phase!=='count'&&!playing))return;paused=true;clearTimeout(cdT);clearInterval(tick);$('#pauseCd').textContent='';$('#pauseBtns').style.display='';$('#pauseOv').classList.add('on')}
+function resumeGame(){if(!paused)return;if(phase==='count'){$('#pauseOv').classList.remove('on');countdown();return}
+ $('#pauseBtns').style.display='none';let n=3;const el=$('#pauseCd');const st=()=>{if(n===0){$('#pauseOv').classList.remove('on');paused=false;armed=false;busy=false;runTick();return}el.textContent=n;beep(440);n--;cdT=setTimeout(st,800)};st()}
+function exitRound(){const wasP=paused;if(!wasP)pauseGame();if(!confirm(t('exitQ'))){if(!wasP)resumeGame();return}
+ clearTimeout(cdT);clearInterval(tick);playing=false;paused=false;phase='';$('#pauseOv').classList.remove('on');ctl(false);show('home')}
 let deck=[],idx=0,ok=[],skip=[],tLeft=0,tick,armed=false,busy=false,playing=false,curMode='pic';
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 function itemsOf(k){const en=S.lang==='en',ag=S.age,out=[];
@@ -140,9 +148,9 @@ function buildDeck(){const seen=new Set(),out=[];const add=(e,w)=>{if(w&&!seen.h
  curMode=S.mode;if(S.cat==='custom'){curMode='word';CUSTOM.forEach(w=>add('',w));return shuffle(out)}
  const keys=S.cat==='mix'?ageCats().filter(k=>!isLocked(k)):[S.cat];
  keys.forEach(k=>itemsOf(k).forEach(([e,w])=>add(e,w)));return shuffle(out)}
-function start(){deck=buildDeck();idx=0;ok=[];skip=[];tLeft=S.time;playing=true;armed=false;busy=false;
+function start(){phase='play';paused=false;deck=buildDeck();idx=0;ok=[];skip=[];tLeft=S.time;playing=true;armed=false;busy=false;
  $('#play').className='screen active '+(curMode==='pic'?'pic':'wordm');show('play');$('#scoreLive').textContent=0;render();upd();
- tick=setInterval(()=>{tLeft--;upd();if(tLeft<=5&&tLeft>0)sndTick();if(tLeft<=0)end()},1000)}
+ runTick()}
 function upd(){$('#timer').textContent=tLeft;$('#timer').classList.toggle('low',tLeft<=10)}
 function render(){if(idx>=deck.length){const again=shuffle(deck.filter(d=>skip.some(s=>s.w===d.w)));deck=deck.concat(again);if(idx>=deck.length){end();return}}
  const it=deck[idx];$('#item').classList.toggle('noimg',!it.e);const im=$('#pimg');if(it.e){im.src=imgOf(it.e);im.alt=it.w;im.style.display='';im.onerror=()=>{im.style.display='none';$('#emoji').textContent=it.e;$('#emoji').style.display=''};$('#emoji').style.display='none'}else{im.style.display='none';$('#emoji').style.display='none'}
@@ -151,14 +159,15 @@ function answer(good){if(!playing||busy)return;busy=true;const it=deck[idx];(goo
  $('#scoreLive').textContent=ok.length;const f=$('#flash');f.className=good?'g':'s';f.textContent=good?'✅':'⏭️';
  setTimeout(()=>{f.className='';idx++;render();busy=false},650)}
 $('#bOk').onclick=()=>answer(true);$('#bSkip').onclick=()=>answer(false);
-$('#quit').onclick=()=>{clearInterval(tick);playing=false;show('home')};
-window.addEventListener('devicemotion',e=>{if(!playing||busy)return;const g=e.accelerationIncludingGravity;if(!g||g.z==null)return;
+$('#quit').onclick=exitRound;$('#pauseB').onclick=pauseGame;$('#exitB').onclick=exitRound;$('#resumeB').onclick=resumeGame;$('#exitB2').onclick=exitRound;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame()});
+window.addEventListener('devicemotion',e=>{if(!playing||busy||paused)return;const g=e.accelerationIncludingGravity;if(!g||g.z==null)return;
  let z=g.z;const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
  if(ios)z=-z;if(localStorage.huInv==='1')z=-z;
  if(Math.abs(z)<3.5){armed=true;return}if(!armed)return;
  if(z<-7){armed=false;answer(true)}else if(z>7){armed=false;answer(false)}});
 const li=x=>`<li>${x.e?`<img src="${imgOf(x.e)}" alt="">`:''}${esc(x.w)}</li>`;
-function end(){if(!playing)return;playing=false;clearInterval(tick);sndEnd();const played=S.cur;if(S.teams>1){S.scores[played]+=ok.length;S.turns++}
+function end(){if(!playing)return;playing=false;phase='';ctl(false);clearInterval(tick);sndEnd();const played=S.cur;if(S.teams>1){S.scores[played]+=ok.length;S.turns++}
  const bk=bestKey(S.cat),prev=BEST[bk]||0,rec=ok.length>prev;if(rec){BEST[bk]=ok.length;localStorage.huBest=JSON.stringify(BEST)}
  $('#sumTitle').textContent=(S.teams>1?S.names[played]+' – ':'')+t('timeUp');
  $('#sumStars').textContent=starStr(starsOf(ok.length));
@@ -168,4 +177,4 @@ function end(){if(!playing)return;playing=false;clearInterval(tick);sndEnd();con
  if(S.teams>1)S.cur=(S.cur+1)%S.teams;board();save();cats();$('#nextUp').textContent=S.teams>1?t('nextUp')+S.names[S.cur]:'';$('#endGame2').style.display=S.teams>1?'':'none';$('#next').textContent=S.teams>1?t('turnOf')+S.names[S.cur]+' ▶':t('again');show('sum')}
 $('#next').onclick=()=>pick(S.cat);$('#toHome').onclick=()=>{ui();show('home')};
 if(!AGES[S.age])S.age='family';applyLang();if(PAYWALL_ENABLED)PAY.init();if(!S.onboarded)onboard();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator){let rl=false;const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=true;location.reload()}});navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{})}

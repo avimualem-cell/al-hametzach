@@ -60,3 +60,5 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 
 .seg.age button{font-size:.95rem}.grid button .hint{display:block;font-size:.72rem;font-weight:600;opacity:.95;margin-top:4px}.grid button.modeT{min-height:130px}.hintP{text-align:center;color:#fff;font-size:1.1rem}#hintP{font-size:1rem;opacity:.8;margin-top:8px}
 #play.pic #item.noimg #word{font-size:min(18vh,9vw);color:#3b1fa3}
+#ctl{position:fixed;top:8px;inset-inline-end:8px;display:none;gap:10px;z-index:50}#ctl button{min-width:96px;min-height:56px;border:0;border-radius:16px;background:#000a;color:#fff;font-size:1.05rem;font-weight:800;padding:6px 12px}
+#pauseOv{position:fixed;inset:0;background:#2a1460;display:none;align-items:center;justify-content:center;z-index:60;color:#fff;text-align:center}#pauseOv.on{display:flex}#pauseOv .pbox{display:flex;flex-direction:column;gap:16px;align-items:center}#pauseBtns{display:flex;gap:16px}#pauseBtns .ghostx{background:#fff3}#pauseBtns .cta{min-width:150px;min-height:64px;font-size:1.3rem}#pauseCd{font-size:5rem;font-weight:900;min-height:1em}
