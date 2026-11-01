@@ -1,0 +1,1 @@
+Picture-mode illustrations in img/: Twemoji (https://github.com/jdecked/twemoji) v15.1.0, graphics licensed CC-BY 4.0. Attribution shown in privacy.html.

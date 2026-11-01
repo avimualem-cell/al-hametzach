@@ -9,7 +9,7 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;max-width:800px;margin:auto}
 .grid button{border:0;border-radius:22px;min-height:120px;font-size:1.2rem;font-weight:800;color:#fff;box-shadow:0 6px 0 #0003;transition:transform .1s}
 .grid button:active{transform:scale(.95)}.grid button b{display:block;font-size:3rem}
-.chk{display:block;margin:10px 0;font-size:1rem}.chk input{transform:scale(1.4);margin-left:8px}
+.chk{display:block;margin:10px 0;font-size:1rem}.chk input{transform:scale(1.4);margin-inline-end:8px}
 .help{color:#fff;text-align:center;max-width:600px;margin:10px auto;opacity:.9}
 #teamNames input{width:100%;font-size:1.1rem;padding:10px;margin-top:8px;border-radius:12px;border:2px solid #ddd}
 .board{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.board div{flex:1;background:#f3efff;border-radius:12px;padding:8px;text-align:center;font-weight:700;color:#222}.board .cur{background:#ffe066}
@@ -29,8 +29,8 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 #flash{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:30vh;z-index:3;color:#fff}
 #flash.g{display:flex;background:#2fbf71}#flash.s{display:flex;background:#ff9a3c}
 #quit{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);border:0;background:#0002;border-radius:50%;width:44px;height:44px;font-size:1.2rem;z-index:2}
-.lists{display:flex;gap:12px;max-width:700px;margin:auto;text-align:right}.lists>div{flex:1;background:#fff;color:#222;border-radius:18px;padding:10px}
-.lists ul{margin:0;padding-right:18px;font-size:1.1rem}
+.lists{display:flex;gap:12px;max-width:700px;margin:auto;text-align:start}.lists>div{flex:1;background:#fff;color:#222;border-radius:18px;padding:10px}
+.lists ul{margin:0;padding-inline-start:18px;font-size:1.1rem}
 #rotate{display:none}
 
 .board div{display:flex;flex-direction:column;align-items:center;border:3px solid transparent}.board div b{font-size:1.8rem}.board div small{font-size:.75rem;color:#6a3df0}
@@ -44,3 +44,16 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 .grid button.mix{background:linear-gradient(135deg,#6a3df0,#ff5c8a,#ff9a3c)}
 #win .huge{font-size:4rem;margin-top:4px}
 .logo{display:block;width:clamp(90px,22vmin,150px);height:auto;margin:0 auto 8px;border-radius:22%;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+/* v4 */
+#pimg{height:min(52vh,38vw);width:auto;max-width:56vw;object-fit:contain;filter:drop-shadow(0 6px 0 #0001)}
+.grid button{position:relative}.grid button.locked{filter:saturate(.45) brightness(.85)}.grid button .lock{position:absolute;top:8px;inset-inline-end:10px;font-style:normal;font-size:1.4rem}
+.grid button .bst{display:block;font-size:.8rem;font-weight:700;margin-top:4px;color:#fff8;color:#fffd}
+#onboard,#customScr,#unlockScr{text-align:center;color:#fff}.obt{font-size:1.6rem;font-weight:800;max-width:560px;margin:10px auto}
+#obDots{margin:14px}#obDots i{display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff6;margin:0 5px}#obDots i.on{background:#ffe066}
+.skipob{position:absolute;top:10px;inset-inline-end:14px;color:#fff;font-size:1.6rem;text-decoration:none}#onboard .huge{margin-top:12vh}
+#customText{width:100%;max-width:560px;font-size:1.2rem;border-radius:16px;padding:12px;border:0}#customScr .link,#unlockScr .link,#home a.link{color:#fff}.card a.link{color:#6a3df0;text-align:center}
+#lockList{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:640px;margin:12px auto}#lockList span{background:#fff3;border-radius:14px;padding:6px 12px;font-weight:700}
+#buy{font-size:1.3rem;padding:16px 28px}#buy:disabled{opacity:.6}#payNote{max-width:520px;margin:12px auto;font-size:1.05rem}
+.stars{direction:ltr;font-size:3rem;color:#ffe066;text-shadow:0 3px 0 #0003;letter-spacing:6px}
+.lists li{display:flex;align-items:center;gap:8px;margin:4px 0}.lists li img{width:34px;height:34px}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:#222;color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;transition:transform .3s;z-index:9}#toast.on{transform:translateX(-50%) translateY(0)}
