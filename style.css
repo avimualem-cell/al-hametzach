@@ -57,3 +57,6 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 .stars{direction:ltr;font-size:3rem;color:#ffe066;text-shadow:0 3px 0 #0003;letter-spacing:6px}
 .lists li{display:flex;align-items:center;gap:8px;margin:4px 0}.lists li img{width:34px;height:34px}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:#222;color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;transition:transform .3s;z-index:9}#toast.on{transform:translateX(-50%) translateY(0)}
+
+.seg.age button{font-size:.95rem}.grid button .hint{display:block;font-size:.72rem;font-weight:600;opacity:.95;margin-top:4px}.grid button.modeT{min-height:130px}.hintP{text-align:center;color:#fff;font-size:1.1rem}#hintP{font-size:1rem;opacity:.8;margin-top:8px}
+#play.pic #item.noimg #word{font-size:min(18vh,9vw);color:#3b1fa3}
