@@ -1,7 +1,7 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#6a3df0"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json"><title>על המצח!</title><link rel="stylesheet" href="style.css?v=7"></head><body>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json"><title>על המצח!</title><link rel="stylesheet" href="style.css?v=8"></head><body>
 <section id="home" class="screen active">
  <img class="logo" src="logo.png" alt="" width="140" height="140"><h1><span data-i="title"></span> 🎉</h1><p class="sub" data-i="sub"></p>
  <div class="card"><h3 data-i="age"></h3><div class="seg age" id="ageSeg"></div><h3 data-i="mode"></h3><div class="seg" id="modeSeg">
@@ -10,29 +10,32 @@
   <label class="chk" id="labelBox"><input type="checkbox" id="showLabel" checked> <span data-i="showLabel"></span></label></div>
  <div class="card"><h3 data-i="time"></h3><div class="seg" id="timeSeg"><button data-v="30" data-s="30"></button><button data-v="60" data-s="60"></button><button data-v="90" data-s="90"></button></div></div>
  <div class="card"><h3 data-i="teams"></h3><div class="seg" id="teamSeg"><button data-v="1" data-i="solo"></button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></div><div id="teamNames"></div>
+  <label class="chk"><input type="checkbox" id="tourn"> <span data-i="tournOn"></span></label><div id="roundRow"><h3 data-i="rounds"></h3><div class="seg" id="roundSeg"><button data-v="2">2</button><button data-v="3">3</button><button data-v="5">5</button><button data-v="7">7</button></div></div>
   <div id="board"></div><button class="cta small" id="endGame" data-i="endGame"></button><button class="link" id="resetScores" data-i="reset"></button></div>
- <h3 class="center" data-i="modesT"></h3><div id="modes" class="grid"></div><h3 class="center" data-i="catsT"></h3><div id="cats" class="grid"></div>
+ <h3 class="center" data-i="modesT"></h3><div id="modes" class="grid"></div><h3 class="center" data-i="catsT"></h3><div id="cats" class="grid"></div><h3 class="center" data-i="holT"></h3><div id="hols" class="grid"></div>
  <div class="card"><h3 data-i="settings"></h3>
   <div class="seg" id="langSeg"><button data-v="he">🇮🇱 עברית</button><button data-v="en">🇬🇧 English</button></div>
   <label class="chk"><input type="checkbox" id="mute"> <span data-i="sound"></span></label>
+  <label class="chk"><input type="checkbox" id="cam"> <span data-i="cam"></span></label><small class="camh" data-i="camHelp"></small>
   <label class="chk"><input type="checkbox" id="invert"> <span data-i="invert"></span></label>
   <button class="link" id="tutorial" data-i="tutorial"></button><button class="link paid" id="restore" data-i="restore"></button><a class="link" href="privacy.html" data-i="privacy"></a></div>
  <p class="help" data-i="help"></p>
 </section>
 <section id="onboard" class="screen"><button class="link skipob" id="obSkip">✕</button><div id="obIcon" class="huge"></div><p id="obText" class="obt"></p><div id="obDots"></div><button class="cta" id="obNext"></button></section>
-<section id="customScr" class="screen"><h2 data-i="customT"></h2><p data-i="customHelp"></p><textarea id="customText" rows="12"></textarea><button class="cta" id="customSave" data-i="saveB"></button><button class="link" id="customBack" data-i="back"></button></section>
+<section id="customScr" class="screen"><h2 data-i="customT"></h2><p data-i="customHelp"></p><div class="cadd"><input id="cNew" enterkeyhint="done"><button id="cAdd" class="cta small"></button></div><div id="cCount"></div><ul id="cList"></ul><button class="cta" id="customSave" data-i="saveB"></button><button class="link" id="customBack" data-i="back"></button></section>
 <section id="unlockScr" class="screen"><div class="huge">🔓</div><h2 data-i="lockedT"></h2><div id="lockList"></div><button class="cta" id="buy"></button><p id="payNote"></p><button class="link" id="restore2" data-i="restore"></button><button class="link" id="unlockBack" data-i="back"></button></section>
 <section id="ready" class="screen"><div id="readyTeam" class="big"></div><div id="readyCat" class="big2"></div><p id="readyHint" class="hintP"></p><p data-i="placeOn"></p><button class="cta" id="go" data-i="go"></button><button class="link" id="back1" data-i="back"></button></section>
 <section id="count" class="screen"><div id="countNum" class="huge">3</div></section>
 <section id="play" class="screen"><div id="timer">60</div><div id="scoreLive">0</div>
  <div id="item"><img id="pimg" alt=""><div id="emoji"></div><div id="word"></div><div id="hintP"></div></div>
  <button class="side skip" id="bSkip">⏭️<br><span data-i="skip"></span></button><button class="side ok" id="bOk">✅<br><span data-i="ok"></span></button>
- <div id="flash"></div></section>
-<section id="sum" class="screen"><h2 id="sumTitle"></h2><div id="sumScore" class="huge"></div><div id="sumStars" class="stars"></div><div id="sumSub"></div>
+ <div id="flash"></div><div id="recDot">● REC</div></section>
+<section id="sum" class="screen"><h2 id="sumTitle"></h2><div id="sumScore" class="huge"></div><div id="sumStars" class="stars"></div><div id="recBanner" style="display:none"></div><div id="sumSub"></div>
  <div class="lists"><div><h3 data-i="guessed"></h3><ul id="lOk"></ul></div><div><h3 data-i="skipped"></h3><ul id="lSkip"></ul></div></div>
+ <div id="vidBox" style="display:none"><h3 data-i="videoT"></h3><video id="vid" controls playsinline></video><div class="vbtn"><a id="vidDl" class="cta small" data-i="dl"></a><button id="vidShare" class="cta small" data-i="share"></button></div></div>
  <div id="board2"></div><div id="nextUp" class="big2"></div><button class="cta" id="next"></button><button class="cta small" id="endGame2" data-i="endShort"></button><button class="link" id="toHome" data-i="menu"></button></section>
-<section id="win" class="screen"><div class="huge">🏆</div><h2 id="winTitle"></h2><ol id="winList"></ol><button class="cta" id="newGame" data-i="newGame"></button><button class="link" id="winHome" data-i="winHome"></button></section>
+<section id="win" class="screen"><div class="huge" id="winCrown">🏆</div><h2 id="winTitle"></h2><ol id="winList"></ol><button class="cta" id="newGame" data-i="newGame"></button><button class="link" id="winHome" data-i="winHome"></button></section>
 <div id="toast"></div>
 <div id="ctl"><button id="pauseB" data-i="pause"></button><button id="exitB" data-i="exit"></button></div>
 <div id="pauseOv"><div class="pbox"><h2 data-i="paused"></h2><div id="pauseCd" class="huge"></div><div id="pauseBtns"><button id="resumeB" class="cta" data-i="resume"></button><button id="exitB2" class="cta ghostx" data-i="exit"></button></div></div></div>
-<button id="quit" hidden></button><script src="data.js?v=7"></script><script src="data_en.js?v=7"></script><script src="ages.js?v=7"></script><script src="pay.js?v=7"></script><script src="app.js?v=7"></script></body></html>
+<button id="quit" hidden></button><script src="data.js?v=8"></script><script src="data_en.js?v=8"></script><script src="ages.js?v=8"></script><script src="holidays.js?v=8"></script><script src="content.js?v=8"></script><script src="pay.js?v=8"></script><script src="app.js?v=8"></script></body></html>

@@ -68,3 +68,23 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 #pimg{height:min(52vh,38vw,calc(100vh - 78px - 64px - min(11vh,7.2vw) - 24px));min-height:0}
 #emoji{font-size:min(55vh,40vw,calc(100vh - 78px - 64px - min(11vh,7.2vw) - 24px))}
 @media (max-height:420px){#pimg{height:min(52vh,38vw,calc(100vh - 78px - 50px - min(11vh,7.2vw) - 16px))}#emoji{font-size:min(55vh,40vw,calc(100vh - 78px - 50px - min(11vh,7.2vw) - 16px))}#scoreLive,#timer{font-size:1.6rem}}
+
+/* v8 */
+.grid button.season{outline:4px solid #ffe066;box-shadow:0 0 18px #ffe066cc;animation:glow 1.6s ease-in-out infinite alternate}.grid button .sb{display:block;font-size:.78rem;font-weight:800;margin-top:4px;color:#ffe066}
+@keyframes glow{from{box-shadow:0 0 6px #ffe06688}to{box-shadow:0 0 22px #ffe066}}
+.camh{display:block;font-size:.8rem;color:#666;margin:-4px 0 6px;padding-inline-start:30px}
+#roundRow h3{margin:10px 0 4px}
+.cadd{display:flex;gap:8px;max-width:560px;margin:10px auto}.cadd input{flex:1;font-size:1.2rem;padding:10px 14px;border-radius:14px;border:0}.cadd .cta.small{margin:0}
+#cCount{font-weight:800;margin:6px}#cList{list-style:none;padding:0;max-width:560px;margin:0 auto;max-height:45vh;overflow:auto}
+#cList li{display:flex;gap:8px;margin:6px 0}#cList input{flex:1;font-size:1.1rem;padding:8px 12px;border-radius:12px;border:0}#cList .del{border:0;border-radius:12px;background:#fff3;font-size:1.2rem;min-width:48px;min-height:44px}
+.lists ul{list-style:none;padding:0}.lists>div:first-child{border-top:6px solid #2fbf71}.lists>div:last-child{border-top:6px solid #e53935}
+#lOk li{color:#1d8a4f;font-weight:700}#lSkip li{color:#c62828;font-weight:700}
+#recBanner{display:inline-block;background:#ffe066;color:#3b1fa3;font-size:1.6rem;font-weight:900;border-radius:30px;padding:6px 22px;margin:6px;animation:pop 1s}
+#vidBox{max-width:700px;margin:12px auto;background:#0003;border-radius:18px;padding:10px}#vid{width:100%;max-height:50vh;border-radius:12px;background:#000;transform:scaleX(-1)}
+.vbtn{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.vbtn .cta.small{margin:8px 0;text-decoration:none;color:#222}
+#recDot{display:none;position:absolute;top:14px;inset-inline-start:14px;z-index:4;background:#e53935;color:#fff;font-weight:900;font-size:.85rem;border-radius:12px;padding:3px 9px;animation:pop 1.2s infinite}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}.confetti i{position:absolute;top:-20px;width:10px;height:16px;border-radius:2px;animation-name:fall;animation-timing-function:linear;animation-fill-mode:forwards}
+@keyframes fall{to{top:110vh;transform:rotate(720deg) translateX(40px)}}
+#winCrown{animation:pop 1s}
+
+#word{overflow-wrap:anywhere;max-width:100%;unicode-bidi:isolate;line-height:1.1}#play.wordm #word{font-size:min(16vh,8vw)}
