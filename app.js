@@ -188,7 +188,7 @@ function answer(good){if(!playing||busy)return;busy=true;const it=deck[idx];(goo
 $('#bOk').onclick=()=>answer(true);$('#bSkip').onclick=()=>answer(false);
 $('#quit').onclick=exitRound;$('#pauseB').onclick=pauseGame;$('#exitB').onclick=exitRound;$('#resumeB').onclick=resumeGame;$('#exitB2').onclick=exitRound;
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame()});
-window.addEventListener('devicemotion',e=>{if(!playing||busy||paused)return;const g=e.accelerationIncludingGravity;if(!g||g.z==null)return;
+window.addEventListener('devicemotion',e=>{if(window.HURace?.active()){window.HURace.motion(e);return}if(!playing||busy||paused)return;const g=e.accelerationIncludingGravity;if(!g||g.z==null)return;
  let z=g.z;const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
  if(ios)z=-z;if(localStorage.huInv==='1')z=-z;
  if(Math.abs(z)<3.5){armed=true;return}if(!armed)return;
