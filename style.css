@@ -63,7 +63,7 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 #ctl{position:fixed;top:auto;bottom:calc(8px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:none;gap:10px;z-index:50}#ctl button{min-width:96px;min-height:56px;border:0;border-radius:16px;background:#000a;color:#fff;font-size:1.05rem;font-weight:800;padding:6px 12px}
 #pauseOv{position:fixed;inset:0;background:#2a1460;display:none;align-items:center;justify-content:center;z-index:60;color:#fff;text-align:center}#pauseOv.on{display:flex}#pauseOv .pbox{display:flex;flex-direction:column;gap:16px;align-items:center}#pauseBtns{display:flex;gap:16px}#pauseBtns .ghostx{background:#fff3}#pauseBtns .cta{min-width:150px;min-height:64px;font-size:1.3rem}#pauseCd{font-size:5rem;font-weight:900;min-height:1em}
 #play #item{padding-bottom:64px;box-sizing:border-box}
-@media (max-height:420px){#ctl button{min-height:44px;min-width:84px;font-size:.95rem;padding:4px 10px}#play #item{padding-bottom:50px}}
+@media (max-height:420px){#ctl button{min-height:44px;min-width:84px;font-size:.95rem;padding:4px 10px}#play #item{padding-bottom:60px}}
 #play #item{padding-top:78px}
 #pimg{height:min(52vh,38vw,calc(100vh - 78px - 64px - min(11vh,7.2vw) - 24px));min-height:0}
 #emoji{font-size:min(55vh,40vw,calc(100vh - 78px - 64px - min(11vh,7.2vw) - 24px))}
@@ -94,3 +94,21 @@ h3{margin:6px 0}.center{text-align:center;color:#fff}
 @media (orientation:landscape) and (max-height:500px){.race-top{height:100px;flex-direction:row;padding:6px 12px;gap:10px}#raceTimer{flex:none}#raceBoard{font-size:.72rem}#raceItem{inset:100px 19% 64px;gap:4px}#racePlay .race-side,#raceFlash{top:100px;bottom:64px}.race-bottom{min-height:60px;padding-top:6px;padding-bottom:6px}.race-bottom button{min-height:46px}#raceWord{font-size:clamp(20px,7vh,34px)}#raceImage{max-height:52%}#raceEmoji{font-size:19vh}#raceHint{font-size:.7rem}.race-page h1{font-size:1.7rem;margin-top:0}#raceCode{font-size:2.8rem}#racePlayers{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}#racePlayers li{padding:6px;margin:0}.race-page .cta.small{margin:8px auto}.race-help{font-size:.8rem}}
 
 #raceBoard>span{display:flex;align-items:center;gap:3px}#raceBoard .race-player-name{display:block;flex:1;min-width:0;padding:0;background:none;border-radius:0}#raceBoard b{flex:none}#raceWord{font-size:clamp(28px,9vw,58px)}@media (orientation:landscape) and (max-height:500px){#raceWord{font-size:clamp(20px,7vh,34px)}}
+/* v10 */
+html{touch-action:manipulation}
+:focus-visible{outline:3px solid #ffd400;outline-offset:2px}
+#tiltOv{position:fixed;inset:0;background:#2a1460;display:none;align-items:center;justify-content:center;z-index:70;color:#fff;text-align:center;padding:20px}
+#tiltOv.on{display:flex}
+#tiltOv .pbox{display:flex;flex-direction:column;gap:14px;align-items:center;max-width:520px}
+#tiltOv p{font-size:1.25rem;line-height:1.4;margin:0}
+.ttTrack{width:min(80vw,420px);height:18px;border-radius:9px;background:#ffffff33;overflow:hidden}
+.ttTrack i{display:block;height:100%;width:50%;background:linear-gradient(90deg,#ff9a3c,#2fbf71);transition:width .12s}
+#raceNet{position:fixed;top:10px;left:50%;transform:translateX(-50%);background:#ffd400;color:#222;font-weight:800;padding:8px 18px;border-radius:24px;z-index:80;box-shadow:0 4px 0 #0003;max-width:90vw;text-align:center}
+.race-copy{min-height:1.3em;font-weight:800;color:#fff;margin:4px 0}
+#raceShare.copied{background:#2fbf71}
+body.bigtxt .grid button{font-size:1.35rem}
+body.bigtxt .lists li{font-size:1.25rem}
+body.bigtxt #hintP,body.bigtxt .hintP{font-size:1.2rem}
+body.bigtxt .side{font-size:2rem}
+.help,.sub{text-shadow:0 1px 2px #0006}
+#sum .lists li{color:#222}

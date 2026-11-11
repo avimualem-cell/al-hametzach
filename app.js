@@ -3,7 +3,7 @@ const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const PAYWALL_ENABLED=false;
 const FREE=['animals','food','colors','toys','kids','games','social','slang','idioms','nostalgia','act','sound','who'];
 const COLORS=['#ff5c8a','#ff9a3c','#2fbf71','#3fa9f5','#a259ff','#f5b700','#00b3a4','#e53935'];
-const S={mode:'word',age:'family',time:60,teams:1,names:[],scores:[],cur:0,turns:0,cat:null,lang:'he',mute:false,onboarded:false,cam:false,tourn:false,rounds:3};
+const S={mode:'word',age:'family',time:60,teams:1,names:[],scores:[],cur:0,turns:0,cat:null,lang:'he',mute:false,onboarded:false,cam:false,tourn:false,rounds:3,sens:'mid',tapOnly:false,big:false,fresh:true};
 try{Object.assign(S,JSON.parse(localStorage.hu||'{}'))}catch(e){}
 const save=()=>{const{cat,...o}=S;localStorage.hu=JSON.stringify(o)};
 const getJ=(k,d)=>{try{return JSON.parse(localStorage[k])||d}catch(e){return d}};
@@ -22,7 +22,7 @@ const T={he:{pause:'⏸ עצירה',resume:'▶ המשך',exit:'✖ יציאה',
  best:'שיא',newBest:'🎉 שיא חדש!',lockedT:'🔓 פתיחת כל הקטגוריות',buyB:'פתיחת כל הקטגוריות – {p} חד־פעמי',buyNote:'תשלום אחד, בלי מנוי ובלי פרסומות. כולל כל קטגוריה שתתווסף בעתיד.',
  onlyApp:'זמין באפליקציה מגוגל פליי',unlocked:'✅ כל הקטגוריות פתוחות! תודה ❤️',restored:'הרכישה שוחזרה ✅',noPurchase:'לא נמצאה רכישה',buyErr:'הרכישה לא הושלמה',
  ob:[['📱','מחזיקים את הטלפון לרוחב על המצח, עם המסך כלפי החברים.'],['🗣️','החברים מתארים, מסבירים או עושים פנטומימה – אתם מנחשים!'],['⬇️✅','ניחשתם? הטו את הטלפון קדימה (מסך לרצפה).'],['⬆️⏭️','רוצים לדלג? הטו אחורה (מסך לתקרה).'],['🏆','בסוף רואים מה ניחשתם, וצוברים כוכבים ושיאים!']],
- obNext:'הבא ▶',obDone:'יאללה, משחקים! 🎉',privacy:'מדיניות פרטיות',cam:'🎥 צילום המנחש במצלמה הקדמית',camHelp:'הסרטון נשמר רק בטלפון, לא עולה לשום מקום',camNo:'אין גישה למצלמה – משחקים בלי צילום',videoT:'🎬 הסרטון של הסיבוב',dl:'⬇️ שמירה',share:'📤 שיתוף',tournT:'🏆 מצב טורניר',tournOn:'טורניר (כמה סיבובים, מנצח בסוף)',rounds:'סיבובים',of:' מתוך ',toResults:'🏆 לתוצאות הטורניר',champ:'אלופי הטורניר!',addW:'הוספה',wordPh:'מילה חדשה...',del:'מחיקה',seasonB:'🌟 עכשיו בעונה!',recCel:'🎉 שיא חדש! 🎉',holT:'🕎 חגים',needTeams:'טורניר צריך לפחות 2 קבוצות'},
+ obNext:'הבא ▶',obDone:'יאללה, משחקים! 🎉',privacy:'מדיניות פרטיות',cam:'🎥 צילום המנחש במצלמה הקדמית',camHelp:'הסרטון נשמר רק בטלפון, לא עולה לשום מקום',camNo:'אין גישה למצלמה – משחקים בלי צילום',videoT:'🎬 הסרטון של הסיבוב',dl:'⬇️ שמירה',share:'📤 שיתוף',tournT:'🏆 מצב טורניר',tournOn:'טורניר (כמה סיבובים, מנצח בסוף)',rounds:'סיבובים',of:' מתוך ',toResults:'🏆 לתוצאות הטורניר',champ:'אלופי הטורניר!',addW:'הוספה',wordPh:'מילה חדשה...',del:'מחיקה',seasonB:'🌟 עכשיו בעונה!',recCel:'🎉 שיא חדש! 🎉',holT:'🕎 חגים',needTeams:'טורניר צריך לפחות 2 קבוצות',sensT:'רגישות הטיה',sLow:'עדינה',sMid:'רגילה',sHigh:'חזקה',tapOnly:'👆 רק כפתורים (בלי הטיה)',big:'🔠 טקסט גדול (לקטנים)',fresh:'🆕 בלי לחזור על מילים בין סיבובים',freshReset:'כל המילים בקטגוריה הופיעו – מתחילים מחדש 🔁',tiltTest:'🎯 בדיקת הטיה',ttTitle:'בדיקת הטיה',ttDo:'שימו את הטלפון על המצח והטו קדימה (מסך לרצפה)',ttOk:'✅ מעולה! ההטיה עובדת',ttFlip:'זיהינו הטיה הפוכה – הפכנו את הכיוון בשבילכם ✅',ttNo:'החיישן לא זמין במכשיר הזה – השתמשו בכפתורים',ttDone:'סיום',noMotion:'אין חיישן תנועה – לחצו על הכפתורים ✅ / ⏭️',timeLeft:'זמן שנותר',scoreL:'ניקוד'},
 en:{
  title:'Heads Up Family!',sub:'A family guessing game',mode:'Game mode',pic:'🖼️ Pictures',kids:'for little ones',word:'🔤 Words',age:'Age group',modesT:'🎭 Game modes',catsT:'📚 Categories',
  showLabel:'Show word under the picture',time:'Round time',sec:'s',teams:'Teams',solo:'Single player',endGame:'🏆 End game & announce winner',reset:'Reset scores',
@@ -37,7 +37,7 @@ en:{
  best:'Best',newBest:'🎉 New record!',lockedT:'🔓 Unlock all categories',buyB:'Unlock all categories – {p} one-time',buyNote:'One payment, no subscription, no ads. Includes every future category.',
  onlyApp:'Available in the Google Play app',unlocked:'✅ All categories unlocked! Thank you ❤️',restored:'Purchase restored ✅',noPurchase:'No purchase found',buyErr:'Purchase not completed',
  ob:[['📱','Hold the phone sideways on your forehead, screen facing your friends.'],['🗣️','Friends describe, explain or act it out – you guess!'],['⬇️✅','Got it? Tilt the phone down (screen to the floor).'],['⬆️⏭️','Want to skip? Tilt it up (screen to the ceiling).'],['🏆','At the end see what you got, and earn stars and records!']],
- obNext:'Next ▶',obDone:"Let's play! 🎉",privacy:'Privacy policy',cam:'🎥 Record the guesser (front camera)',camHelp:'The video stays on this phone only, never uploaded',camNo:'No camera access – playing without video',videoT:'🎬 Your round video',dl:'⬇️ Save',share:'📤 Share',tournT:'🏆 Tournament',tournOn:'Tournament (several rounds, winner at the end)',rounds:'Rounds',of:' of ',toResults:'🏆 Tournament results',champ:'Tournament champions!',addW:'Add',wordPh:'New word...',del:'Delete',seasonB:'🌟 In season now!',recCel:'🎉 New record! 🎉',holT:'🕎 Holidays',needTeams:'A tournament needs at least 2 teams'}};
+ obNext:'Next ▶',obDone:"Let's play! 🎉",privacy:'Privacy policy',cam:'🎥 Record the guesser (front camera)',camHelp:'The video stays on this phone only, never uploaded',camNo:'No camera access – playing without video',videoT:'🎬 Your round video',dl:'⬇️ Save',share:'📤 Share',tournT:'🏆 Tournament',tournOn:'Tournament (several rounds, winner at the end)',rounds:'Rounds',of:' of ',toResults:'🏆 Tournament results',champ:'Tournament champions!',addW:'Add',wordPh:'New word...',del:'Delete',seasonB:'🌟 In season now!',recCel:'🎉 New record! 🎉',holT:'🕎 Holidays',needTeams:'A tournament needs at least 2 teams',sensT:'Tilt sensitivity',sLow:'Gentle',sMid:'Normal',sHigh:'Strong',tapOnly:'👆 Buttons only (no tilt)',big:'🔠 Large text (little kids)',fresh:'🆕 No repeated words between rounds',freshReset:'You have seen every word here – starting over 🔁',tiltTest:'🎯 Test tilt',ttTitle:'Tilt test',ttDo:'Put the phone on your forehead and tilt it down (screen to the floor)',ttOk:'✅ Great! Tilt works',ttFlip:'Tilt looked reversed – we flipped it for you ✅',ttNo:'Motion sensor not available on this device – use the buttons',ttDone:'Done',noMotion:'No motion sensor – tap the ✅ / ⏭️ buttons',timeLeft:'Time left',scoreL:'Score'}};
 const t=k=>T[S.lang][k];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const imgOf=e=>{if(!e)return '';const c=[...e].map(x=>x.codePointAt(0));return 'img/'+(c.includes(0x200d)?c:c.filter(x=>x!==0xfe0f)).map(x=>x.toString(16)).join('-')+'.svg'};
@@ -50,10 +50,10 @@ const isLocked=k=>PAYWALL_ENABLED&&!PAY.owned&&k!=='custom'&&k!=='mix'&&!FREE.in
 const defName=i=>t('team')+(i+1);
 function show(id){$$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));scrollTo(0,0)}
 function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2200)}
-function seg(id,key,num,cb){const el=$(id);el.querySelectorAll('button').forEach(b=>{b.classList.toggle('on',String(S[key])===b.dataset.v);
- b.onclick=()=>{S[key]=num?+b.dataset.v:b.dataset.v;el.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));save();cb&&cb()}})}
+function seg(id,key,num,cb){const el=$(id);el.setAttribute('role','group');el.querySelectorAll('button').forEach(b=>{b.type='button';const on=String(S[key])===b.dataset.v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);
+ b.onclick=()=>{S[key]=num?+b.dataset.v:b.dataset.v;el.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});save();cb&&cb()}})}
 function applyLang(){const h=document.documentElement;h.lang=S.lang;h.dir=S.lang==='he'?'rtl':'ltr';document.title=t('title');
- $$('[data-i]').forEach(el=>el.textContent=t(el.dataset.i));ageSeg();$$('[data-s]').forEach(el=>el.textContent=el.dataset.s+' '+t('sec'));
+ $$('[data-i]').forEach(el=>el.textContent=t(el.dataset.i));ageSeg();$$('[data-al]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.al)));$$('[data-s]').forEach(el=>el.textContent=el.dataset.s+' '+t('sec'));
  S.names=S.names.map((n,i)=>/^(קבוצה|Team) \d+$/.test(n)?defName(i):n);ui();cats();payUI()}
 function ui(){$('#roundRow').style.display=S.tourn?'':'none';if(S.tourn&&S.teams<2){S.tourn=false;$('#tourn').checked=false}$$('.paid').forEach(el=>el.style.display=PAYWALL_ENABLED?'':'none');$('#labelBox').style.display=S.mode==='pic'?'':'none';
  const tn=$('#teamNames');tn.innerHTML='';if(S.teams>1)for(let i=0;i<S.teams;i++){const inp=document.createElement('input');
@@ -71,20 +71,38 @@ function tile(k,i,box){const b=document.createElement('button');const L=isLocked
   const SE=typeof seasonal==='function'&&seasonal().includes(k);b.className=(k==='mix'?'mix ':'')+(MODES[k]?'modeT ':'')+(SE?'season ':'')+(L?'locked':'');if(k!=='mix')b.style.background=k==='custom'?'#444':COLORS[i%COLORS.length];
   const best=BEST[bestKey(k)];const hint=MODES[k]?`<small class="hint">${esc(MODES[k].hint[LI()])}</small>`:'';
   b.innerHTML=`<b>${catIcon(k)}</b>${esc(catName(k))}${hint}${SE?`<small class="sb">${t('seasonB')}</small>`:''}${L?'<i class="lock">🔒</i>':''}${best?`<small class="bst">${starStr(starsOf(best))} ${t('best')} ${best}</small>`:''}`+(k==='custom'&&CUSTOM.length?`<small class="bst">${CUSTOM.length} ${t('words')}</small>`:'');
-  b.dataset.k=k;b.onclick=()=>L?openUnlock():k==='custom'?openCustom():pick(k);box.appendChild(b)}
+  b.type='button';b.setAttribute('aria-label',catName(k)+(L?' 🔒':'')+(best?' · '+t('best')+' '+best:''));b.dataset.k=k;b.onclick=()=>L?openUnlock():k==='custom'?openCustom():pick(k);box.appendChild(b)}
 function cats(){const box=$('#cats');box.innerHTML='';const mb=$('#modes');mb.innerHTML='';
  Object.keys(MODES).forEach((k,i)=>tile(k,i+3,mb));
  const se=seasonal();['mix','custom',...se,...ageCats().filter(k=>!se.includes(k))].forEach((k,i)=>tile(k,i,box));
  const hb=$('#hols');hb.innerHTML='';HOLI.filter(k=>!se.includes(k)).forEach((k,i)=>tile(k,i+2,hb))}
-function ageSeg(){const el=$('#ageSeg');el.innerHTML=Object.entries(AGES).map(([k,a])=>`<button data-v="${k}" class="${S.age===k?'on':''}">${a.icon}<br>${esc(LI()?a.en:a.he)}</button>`).join('');
+function ageSeg(){const el=$('#ageSeg');el.setAttribute('role','group');el.innerHTML=Object.entries(AGES).map(([k,a])=>`<button type="button" data-v="${k}" aria-pressed="${S.age===k}" class="${S.age===k?'on':''}">${a.icon}<br>${esc(LI()?a.en:a.he)}</button>`).join('');
  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{S.age=b.dataset.v;if(S.age==='kids')S.mode='pic';else if(S.age==='family')S.mode='word';else if(S.mode==='pic'&&S.age!=='mid')S.mode='word';
-  el.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));$$('#modeSeg button').forEach(x=>x.classList.toggle('on',x.dataset.v===S.mode));save();ui();cats()})}
+  el.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});$$('#modeSeg button').forEach(x=>{x.classList.toggle('on',x.dataset.v===S.mode);x.setAttribute('aria-pressed',x.dataset.v===S.mode)});save();ui();cats();bigUI()})}
 // settings
 seg('#modeSeg','mode',0,()=>{ui();cats()});seg('#timeSeg','time',1,cats);seg('#teamSeg','teams',1,ui);seg('#langSeg','lang',0,applyLang);seg('#roundSeg','rounds',1,ui);
 $('#mute').checked=!S.mute;$('#mute').onchange=e=>{S.mute=!e.target.checked;save();if(!S.mute)sndOk()};
 $('#cam').checked=!!S.cam;$('#cam').onchange=e=>{S.cam=e.target.checked;save();if(S.cam)camOpen().then(ok=>{if(!ok){S.cam=false;$('#cam').checked=false;save()}camClose()})};
 $('#tourn').checked=!!S.tourn;$('#tourn').onchange=e=>{S.tourn=e.target.checked;if(S.tourn&&S.teams<2){S.teams=2;$$('#teamSeg button').forEach(x=>x.classList.toggle('on',x.dataset.v==='2'));toast(t('needTeams'))}resetGame();save()};
 $('#invert').checked=localStorage.huInv==='1';$('#invert').onchange=e=>localStorage.huInv=e.target.checked?'1':'0';
+seg('#sensSeg','sens',0);
+const bigUI=()=>document.body.classList.toggle('bigtxt',!!S.big);
+$('#tapOnly').checked=!!S.tapOnly;$('#tapOnly').onchange=e=>{S.tapOnly=e.target.checked;save()};
+$('#bigTxt').checked=!!S.big;$('#bigTxt').onchange=e=>{S.big=e.target.checked;save();bigUI()};
+$('#fresh').checked=S.fresh!==false;$('#fresh').onchange=e=>{S.fresh=e.target.checked;save()};
+// tilt thresholds by sensitivity: [arm zone, trigger]
+const TH={low:[3,8.3],mid:[3.5,7],high:[3.5,5.6]};const thr=()=>TH[S.sens]||TH.mid;
+const isIOS=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const tiltZ=e=>{const g=e.accelerationIncludingGravity;if(!g||g.z==null)return null;let z=g.z;if(isIOS())z=-z;if(localStorage.huInv==='1')z=-z;return z};
+// tilt test / calibration: ask for a forward tilt; if the opposite direction fires, flip the setting
+let ttOn=false,ttArm=false,gotMotion=false;
+function ttOpen(){ttOn=true;ttArm=false;$('#ttMsg').textContent=t('ttDo');$('#ttBar').style.width='50%';$('#tiltOv').classList.add('on');
+ askMotion().then(()=>setTimeout(()=>{if(ttOn&&!gotMotion)$('#ttMsg').textContent=t('ttNo')},2500))}
+function ttClose(){ttOn=false;$('#tiltOv').classList.remove('on')}
+function ttMotion(e){const z=tiltZ(e);if(z==null)return;const[a,tr]=thr();$('#ttBar').style.width=Math.max(4,Math.min(100,50-z*5))+'%';
+ if(Math.abs(z)<a){ttArm=true;return}if(!ttArm)return;
+ if(z<-tr){ttArm=false;$('#ttMsg').textContent=t('ttOk');sndOk()}else if(z>tr){ttArm=false;const inv=localStorage.huInv==='1';localStorage.huInv=inv?'0':'1';$('#invert').checked=!inv;$('#ttMsg').textContent=t('ttFlip');sndOk()}}
+$('#tiltTest').onclick=ttOpen;$('#ttDone').onclick=ttClose;
 function resetGame(){S.scores=S.scores.map(()=>0);S.cur=0;S.turns=0;ui()}
 $('#resetScores').onclick=resetGame;
 function winner(){const L=leaders(),names=S.names.slice(0,S.teams);
@@ -104,7 +122,7 @@ $('#obSkip').onclick=()=>{S.onboarded=true;save();show('home')};$('#tutorial').o
 // custom category
 function saveCustom(){CUSTOM=[...new Set(CUSTOM.map(x=>x.trim()).filter(Boolean))];localStorage.huCustom=JSON.stringify(CUSTOM);cats()}
 function renderCustom(){$('#cCount').textContent=CUSTOM.length+' '+t('words');const ul=$('#cList');ul.innerHTML='';CUSTOM.forEach((w,i)=>{const li=document.createElement('li');const inp=document.createElement('input');inp.value=w;
- inp.onchange=()=>{const v=inp.value.trim();if(v)CUSTOM[i]=v;else CUSTOM.splice(i,1);saveCustom();renderCustom()};const d=document.createElement('button');d.textContent='🗑️';d.title=t('del');d.className='del';
+ inp.onchange=()=>{const v=inp.value.trim();if(v)CUSTOM[i]=v;else CUSTOM.splice(i,1);saveCustom();renderCustom()};const d=document.createElement('button');d.textContent='🗑️';d.title=t('del');d.setAttribute('aria-label',t('del')+' '+w);d.className='del';
  d.onclick=()=>{CUSTOM.splice(i,1);saveCustom();renderCustom()};li.append(inp,d);ul.appendChild(li)})}
 function addCustom(){const el=$('#cNew');el.value.split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(v=>{if(!CUSTOM.includes(v))CUSTOM.push(v)});el.value='';saveCustom();renderCustom();el.focus()}
 function openCustom(){$('#cNew').placeholder=t('wordPh');$('#cAdd').textContent=t('addW');renderCustom();show('customScr')}
@@ -171,28 +189,44 @@ function itemsOf(k){const en=S.lang==='en',ag=S.age,out=[];
  if(S.mode==='pic'||ag==='kids'||ag==='family')c.pic.forEach(([e,w],i)=>out.push([S.mode==='pic'?e:'',src?src.pic[i]:w]));
  if(S.mode!=='pic'){const wb=src?src.word:c.word;AGE_LEVELS[ag].forEach(l=>wb[l].forEach(w=>out.push(['',w])))}
  return out}
-function buildDeck(){const seen=new Set(),out=[];const pics=MODES[S.cat]&&MODES[S.cat].pics;const add=(e,w)=>{if(w&&!seen.has(w)){seen.add(w);out.push({e:(S.mode==='pic'||pics)?e:'',w})}};
- curMode=pics?'pic':S.mode;if(S.cat==='custom'){curMode='word';CUSTOM.forEach(w=>add('',w));return shuffle(out)}
+// words already shown in earlier rounds are kept per category+age+mode+language and skipped until the whole deck was seen
+const normW=w=>String(w).toLowerCase().replace(/[\s'"׳״\-–־.,!?:()]/g,'');
+const seenKey=()=>[S.cat,S.age,S.mode,S.lang].join('|');
+let SEEN=getJ('huSeen',{});
+function markSeen(w){if(S.fresh===false||!S.cat)return;const k=seenKey(),a=SEEN[k]||(SEEN[k]=[]);const n=normW(w);if(!a.includes(n))a.push(n);if(a.length>3000)a.splice(0,a.length-3000);
+ const ks=Object.keys(SEEN);if(ks.length>60)delete SEEN[ks[0]];try{localStorage.huSeen=JSON.stringify(SEEN)}catch(e){SEEN={};localStorage.removeItem('huSeen')}}
+function freshOrder(list){if(S.fresh===false)return shuffle(list);const k=seenKey(),s=new Set(SEEN[k]||[]);
+ const fresh=shuffle(list.filter(x=>!s.has(normW(x.w)))),old=shuffle(list.filter(x=>s.has(normW(x.w))));
+ const need=Math.min(list.length,Math.max(12,Math.ceil(S.time/3)));if(fresh.length<need&&old.length){if(s.size){delete SEEN[k];try{localStorage.huSeen=JSON.stringify(SEEN)}catch(e){}setTimeout(()=>toast(t('freshReset')),900)}}
+ return fresh.concat(old)}
+function buildDeck(){const seen=new Set(),out=[];const pics=MODES[S.cat]&&MODES[S.cat].pics;const add=(e,w)=>{const n=normW(w);if(w&&!seen.has(n)){seen.add(n);out.push({e:(S.mode==='pic'||pics)?e:'',w})}};
+ curMode=pics?'pic':S.mode;if(S.cat==='custom'){curMode='word';CUSTOM.forEach(w=>add('',w));return freshOrder(out)}
  const keys=S.cat==='mix'?ageCats().filter(k=>!isLocked(k)):[S.cat];
- keys.forEach(k=>itemsOf(k).forEach(([e,w])=>add(e,w)));return shuffle(out)}
+ keys.forEach(k=>itemsOf(k).forEach(([e,w])=>add(e,w)));return freshOrder(out)}
 function start(){phase='play';paused=false;deck=buildDeck();idx=0;ok=[];skip=[];tLeft=S.time;playing=true;armed=false;busy=false;
- $('#play').className='screen active '+(curMode==='pic'?'pic':'wordm');show('play');$('#scoreLive').textContent=0;render();upd();
+ $('#play').className='screen active '+(curMode==='pic'?'pic':'wordm');show('play');gotMotion=false;if(!S.tapOnly)setTimeout(()=>{if(playing&&!gotMotion)toast(t('noMotion'))},2500);$('#scoreLive').textContent=0;render();upd();
  recStart();runTick()}
-function upd(){$('#timer').textContent=tLeft;$('#timer').classList.toggle('low',tLeft<=10)}
+function upd(){$('#timer').textContent=tLeft;$('#timer').setAttribute('aria-label',t('timeLeft')+' '+tLeft);$('#timer').classList.toggle('low',tLeft<=10)}
 function render(){if(idx>=deck.length){const again=shuffle(deck.filter(d=>skip.some(s=>s.w===d.w)));deck=deck.concat(again);if(idx>=deck.length){end();return}}
  const it=deck[idx];$('#item').classList.toggle('noimg',!it.e);const im=$('#pimg');if(it.e&&!HAVE.has(imgOf(it.e))){im.style.display='none';$('#emoji').textContent=it.e;$('#emoji').style.display=''}else if(it.e){im.src=imgOf(it.e);im.alt=it.w;im.style.display='';im.onerror=()=>{im.style.display='none';$('#emoji').textContent=it.e;$('#emoji').style.display=''};$('#emoji').style.display='none'}else{im.style.display='none';$('#emoji').style.display='none'}
- $('#word').dir=/[\u0590-\u05FF]/.test(it.w)?'rtl':'ltr';$('#word').textContent=(curMode==='pic'&&it.e&&!$('#showLabel').checked)?'':it.w;$('#hintP').textContent=MODES[S.cat]?MODES[S.cat].hint[LI()]:''}
+ $('#word').dir=/[\u0590-\u05FF]/.test(it.w)?'rtl':'ltr';$('#word').textContent=(curMode==='pic'&&it.e&&!$('#showLabel').checked)?'':it.w;$('#hintP').textContent=MODES[S.cat]?MODES[S.cat].hint[LI()]:'';fitWord();markSeen(it.w)}
+// shrink very long words until they fit the card (bigger start size when "large text" is on)
+function fitWord(){const w=$('#word'),box=$('#item');w.style.fontSize='';if(!w.textContent)return;let f=parseFloat(getComputedStyle(w).fontSize)*(S.big?1.25:1);w.style.fontSize=f+'px';
+ const c=$('#ctl'),tm=$('#timer'),cTop=c&&getComputedStyle(c).display!=='none'?c.getBoundingClientRect().top-4:innerHeight,tBot=tm?tm.getBoundingClientRect().bottom+2:0;const out=()=>{const r=w.getBoundingClientRect();return box.scrollHeight>box.clientHeight+1||w.scrollWidth>w.clientWidth+1||r.bottom>cTop||r.top<tBot};
+ for(let i=0;i<40&&f>12&&out();i++){f*=.92;w.style.fontSize=f+'px'}}
+addEventListener('resize',()=>{if(playing)fitWord()});
 function answer(good){if(!playing||busy)return;busy=true;const it=deck[idx];(good?ok:skip).push(it);good?sndOk():sndSkip();
- $('#scoreLive').textContent=ok.length;const f=$('#flash');f.className=good?'g':'s';f.textContent=good?'✅':'⏭️';
+ $('#scoreLive').textContent=ok.length;$('#scoreLive').setAttribute('aria-label',t('scoreL')+' '+ok.length);const f=$('#flash');f.className=good?'g':'s';f.textContent=good?'✅':'⏭️';
  setTimeout(()=>{f.className='';idx++;render();busy=false},650)}
 $('#bOk').onclick=()=>answer(true);$('#bSkip').onclick=()=>answer(false);
 $('#quit').onclick=exitRound;$('#pauseB').onclick=pauseGame;$('#exitB').onclick=exitRound;$('#resumeB').onclick=resumeGame;$('#exitB2').onclick=exitRound;
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame()});
-window.addEventListener('devicemotion',e=>{if(window.HURace?.active()){window.HURace.motion(e);return}if(!playing||busy||paused)return;const g=e.accelerationIncludingGravity;if(!g||g.z==null)return;
- let z=g.z;const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
- if(ios)z=-z;if(localStorage.huInv==='1')z=-z;
- if(Math.abs(z)<3.5){armed=true;return}if(!armed)return;
- if(z<-7){armed=false;answer(true)}else if(z>7){armed=false;answer(false)}});
+document.addEventListener('keydown',e=>{if(!playing||paused)return;if(e.key==='ArrowDown'||e.key==='Enter'){e.preventDefault();answer(true)}else if(e.key==='ArrowUp'||e.key===' '){e.preventDefault();answer(false)}else if(e.key==='Escape')pauseGame()});
+window.addEventListener('devicemotion',e=>{const g0=e.accelerationIncludingGravity;if(g0&&g0.z!=null)gotMotion=true;if(ttOn){ttMotion(e);return}
+ if(window.HURace?.active()){if(!S.tapOnly)window.HURace.motion(e);return}if(!playing||busy||paused||S.tapOnly)return;const z=tiltZ(e);if(z==null)return;const[a,tr]=thr();
+ if(Math.abs(z)<a){armed=true;return}if(!armed)return;
+ if(z<-tr){armed=false;answer(true)}else if(z>tr){armed=false;answer(false)}});
+window.HUtilt={thr,tiltZ};
 const li=x=>`<li dir="auto">${x.e?(HAVE.has(imgOf(x.e))?`<img src="${imgOf(x.e)}" alt="">`:`<span class="em">${x.e}</span>`):''}${esc(x.w)}</li>`;
 function end(){if(!playing)return;playing=false;phase='';ctl(false);clearInterval(tick);sndEnd();showVideo(null);recStop(true).then(showVideo);const played=S.cur;if(S.teams>1){S.scores[played]+=ok.length;S.turns++}
  const bk=bestKey(S.cat),prev=BEST[bk]||0,rec=ok.length>prev&&ok.length>0;$('#recBanner').style.display=rec?'':'none';if(rec){$('#recBanner').textContent=t('recCel');setTimeout(()=>{confetti(110);sndWin()},700)}if(rec){BEST[bk]=ok.length;localStorage.huBest=JSON.stringify(BEST)}
@@ -205,5 +239,5 @@ function end(){if(!playing)return;playing=false;phase='';ctl(false);clearInterva
  tDone=S.tourn&&S.teams>1&&S.turns>=S.rounds*S.teams;if(tDone){$('#next').textContent=t('toResults');$('#nextUp').textContent='';$('#endGame2').style.display='none'}show('sum')}
 let tDone=false;
 $('#next').onclick=()=>tDone?winner():pick(S.cat);$('#toHome').onclick=()=>{ui();show('home')};
-if(!AGES[S.age])S.age='family';applyLang();if(PAYWALL_ENABLED)PAY.init();if(!S.onboarded)onboard();
+if(!AGES[S.age])S.age='family';bigUI();applyLang();if(PAYWALL_ENABLED)PAY.init();if(!S.onboarded)onboard();
 if('serviceWorker' in navigator){let rl=false;const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=true;location.reload()}});navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{})}

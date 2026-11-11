@@ -1,9 +1,9 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#6a3df0"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json"><title>על המצח!</title><link rel="stylesheet" href="style.css?v=9"></head><body>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json"><title>על המצח!</title><link rel="preload" href="logo.png" as="image"><link rel="stylesheet" href="style.css?v=10"></head><body>
 <section id="home" class="screen active">
- <img class="logo" src="logo.png" alt="" width="140" height="140"><h1><span data-i="title"></span> 🎉</h1><p class="sub" data-i="sub"></p>
+ <img class="logo" src="logo.png" alt="" width="140" height="140" fetchpriority="high"><h1><span data-i="title"></span> 🎉</h1><p class="sub" data-i="sub"></p>
  <div class="card race-entry"><h3>🏁 שחקו יחד — מירוץ במקביל</h3><p>יש קוד חדר? הצטרפו מהטלפון שלכם!</p><form id="raceJoinForm"><label for="roomCode">קוד חדר</label><input id="roomCode" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="4821" required><label for="raceName">כינוי לקבוצה / לשחקן</label><input id="raceName" maxlength="24" placeholder="נבחר שם אוטומטית"><button class="cta small" id="raceJoin">כניסה לחדר ▶</button></form><small>או בחרו קטגוריה למטה ופתחו חדר חדש. צריך אינטרנט.</small></div><div class="card"><h3 data-i="age"></h3><div class="seg age" id="ageSeg"></div><h3 data-i="mode"></h3><div class="seg" id="modeSeg">
   <button data-v="pic"><span data-i="pic"></span><small data-i="kids"></small></button><button data-v="word" data-i="word"></button></div>
   
@@ -18,28 +18,35 @@
   <label class="chk"><input type="checkbox" id="mute"> <span data-i="sound"></span></label>
   <label class="chk"><input type="checkbox" id="cam"> <span data-i="cam"></span></label><small class="camh" data-i="camHelp"></small>
   <label class="chk"><input type="checkbox" id="invert"> <span data-i="invert"></span></label>
+  <h3 data-i="sensT" id="sensH"></h3><div class="seg" id="sensSeg" aria-labelledby="sensH"><button data-v="low" data-i="sLow"></button><button data-v="mid" data-i="sMid"></button><button data-v="high" data-i="sHigh"></button></div>
+  <button class="link" id="tiltTest" data-i="tiltTest"></button>
+  <label class="chk"><input type="checkbox" id="tapOnly"> <span data-i="tapOnly"></span></label>
+  <label class="chk"><input type="checkbox" id="bigTxt"> <span data-i="big"></span></label>
+  <label class="chk"><input type="checkbox" id="fresh" checked> <span data-i="fresh"></span></label>
   <button class="link" id="tutorial" data-i="tutorial"></button><button class="link paid" id="restore" data-i="restore"></button><a class="link" href="privacy.html" data-i="privacy"></a></div>
  <p class="help" data-i="help"></p>
 </section>
-<section id="onboard" class="screen"><button class="link skipob" id="obSkip">✕</button><div id="obIcon" class="huge"></div><p id="obText" class="obt"></p><div id="obDots"></div><button class="cta" id="obNext"></button></section>
+<section id="onboard" class="screen"><button class="link skipob" id="obSkip" aria-label="Skip / דילוג">✕</button><div id="obIcon" class="huge"></div><p id="obText" class="obt"></p><div id="obDots"></div><button class="cta" id="obNext"></button></section>
 <section id="customScr" class="screen"><h2 data-i="customT"></h2><p data-i="customHelp"></p><div class="cadd"><input id="cNew" enterkeyhint="done"><button id="cAdd" class="cta small"></button></div><div id="cCount"></div><ul id="cList"></ul><button class="cta" id="customSave" data-i="saveB"></button><button class="link" id="customBack" data-i="back"></button></section>
 <section id="unlockScr" class="screen"><div class="huge">🔓</div><h2 data-i="lockedT"></h2><div id="lockList"></div><button class="cta" id="buy"></button><p id="payNote"></p><button class="link" id="restore2" data-i="restore"></button><button class="link" id="unlockBack" data-i="back"></button></section>
 <section id="ready" class="screen"><div id="readyTeam" class="big"></div><div id="readyCat" class="big2"></div><p id="readyHint" class="hintP"></p><p data-i="placeOn"></p><button class="cta" id="go" data-i="go"></button><button class="cta small" id="raceHost">🏁 מירוץ במקביל — פתיחת חדר</button><button class="link" id="back1" data-i="back"></button></section>
-<section id="count" class="screen"><div id="countNum" class="huge">3</div></section>
-<section id="play" class="screen"><div id="timer">60</div><div id="scoreLive">0</div>
- <div id="item"><img id="pimg" alt=""><div id="emoji"></div><div id="word"></div><div id="hintP"></div></div>
- <button class="side skip" id="bSkip">⏭️<br><span data-i="skip"></span></button><button class="side ok" id="bOk">✅<br><span data-i="ok"></span></button>
- <div id="flash"></div><div id="recDot">● REC</div></section>
+<section id="count" class="screen"><div id="countNum" class="huge" role="status" aria-live="assertive">3</div></section>
+<section id="play" class="screen"><div id="timer" role="timer" aria-live="off">60</div><div id="scoreLive" aria-live="polite">0</div>
+ <div id="item" aria-live="polite"><img id="pimg" alt=""><div id="emoji"></div><div id="word"></div><div id="hintP"></div></div>
+ <button class="side skip" id="bSkip" data-al="skip">⏭️<br><span data-i="skip"></span></button><button class="side ok" id="bOk" data-al="ok">✅<br><span data-i="ok"></span></button>
+ <div id="flash" aria-hidden="true"></div><div id="recDot">● REC</div></section>
 <section id="sum" class="screen"><h2 id="sumTitle"></h2><div id="sumScore" class="huge"></div><div id="sumStars" class="stars"></div><div id="recBanner" style="display:none"></div><div id="sumSub"></div>
  <div class="lists"><div><h3 data-i="guessed"></h3><ul id="lOk"></ul></div><div><h3 data-i="skipped"></h3><ul id="lSkip"></ul></div></div>
  <div id="vidBox" style="display:none"><h3 data-i="videoT"></h3><video id="vid" controls playsinline></video><div class="vbtn"><a id="vidDl" class="cta small" data-i="dl"></a><button id="vidShare" class="cta small" data-i="share"></button></div></div>
  <div id="board2"></div><div id="nextUp" class="big2"></div><button class="cta" id="next"></button><button class="cta small" id="endGame2" data-i="endShort"></button><button class="link" id="toHome" data-i="menu"></button></section>
 <section id="win" class="screen"><div class="huge" id="winCrown">🏆</div><h2 id="winTitle"></h2><ol id="winList"></ol><button class="cta" id="newGame" data-i="newGame"></button><button class="link" id="winHome" data-i="winHome"></button></section>
-<section id="raceLobby" class="screen race-page" dir="rtl"><h1>🏁 מירוץ במקביל</h1><p>קוד החדר — אמרו לחברים:</p><div id="raceCode" dir="ltr">…</div><p id="raceSetup"></p><button id="raceShare" class="cta small">🔗 העתקת קישור לחדר</button><p id="raceLobbyStatus" role="status" aria-live="polite"></p><ul id="racePlayers"></ul><p class="race-help">2–8 קבוצות, טלפון אחד לכל קבוצה.<br>אותה מילה לכולם! הראשון שמנחש ומטה קדימה זוכה בנקודה.<br>הטיה אחורה = לא יודעים, בלי להחליף את המילה.<br>המצלמה כבויה במירוץ. המארח חייב להישאר בחדר.<br>שחקו עם מכרים והשתמשו בכינוי — הקוד אינו סיסמה.</p><button id="raceStart" class="cta small">כולם מוכנים? מתחילים! ▶</button><button id="raceLobbyExit" class="link">יציאה מהחדר</button></section>
+<section id="raceLobby" class="screen race-page" dir="rtl"><h1>🏁 מירוץ במקביל</h1><p>קוד החדר — אמרו לחברים:</p><div id="raceCode" dir="ltr">…</div><p id="raceSetup"></p><button id="raceShare" class="cta small" aria-describedby="raceShareMsg">🔗 העתקת קישור לחדר</button><p id="raceShareMsg" class="race-copy" role="status" aria-live="polite"></p><p id="raceLobbyStatus" role="status" aria-live="polite"></p><ul id="racePlayers"></ul><p class="race-help">2–8 קבוצות, טלפון אחד לכל קבוצה.<br>אותה מילה לכולם! הראשון שמנחש ומטה קדימה זוכה בנקודה.<br>הטיה אחורה = לא יודעים, בלי להחליף את המילה.<br>המצלמה כבויה במירוץ. המארח חייב להישאר בחדר.<br>שחקו עם מכרים והשתמשו בכינוי — הקוד אינו סיסמה.</p><button id="raceStart" class="cta small">כולם מוכנים? מתחילים! ▶</button><button id="raceLobbyExit" class="link">יציאה מהחדר</button></section>
 <section id="racePlay" class="screen" dir="rtl"><header class="race-top"><b id="raceTimer">60</b><div id="raceBoard" aria-label="ניקוד חי"></div></header><div id="raceItem"><img id="raceImage" alt=""><div id="raceEmoji"></div><div id="raceWord" dir="auto"></div><small id="raceHint"></small></div><button id="raceSkip" class="race-side race-skip">⏭️<br>לא יודעים</button><button id="raceCorrect" class="race-side race-ok">✅<br>ניחשנו!</button><div id="raceFlash" role="status"></div><div class="race-bottom"><button id="racePause">⏸ עצירה</button><button id="raceGlobalSkip">⏭ לכולם</button><button id="raceEnd">🏁 סיום</button><button id="raceExit">✖ יציאה</button></div><div id="racePaused"><h2>⏸ המשחק בהפסקה</h2><p>הזמן עצר אצל כולם</p><button id="raceResume" class="cta small">▶ ממשיכים</button><button id="racePausedExit" class="cta small">✖ יציאה</button></div></section>
 <section id="raceResults" class="screen race-page" dir="rtl"><h1>🏆 תוצאות המירוץ</h1><h2 id="raceWinner"></h2><ol id="raceRanks"></ol><button id="raceAgain" class="cta small">סיבוב נוסף ▶</button><p id="raceAgainWait">מחכים למארח לסיבוב נוסף</p><button id="raceHome" class="link">חזרה הביתה</button></section>
 <section id="raceError" class="screen race-page" dir="rtl"><div class="huge">📡</div><h2 id="raceErrorText" role="alert"></h2><button id="raceErrorHome" class="cta small">חזרה הביתה</button></section>
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="tiltOv" role="dialog" aria-modal="true" aria-labelledby="ttH"><div class="pbox"><h2 id="ttH" data-i="ttTitle"></h2><p id="ttMsg" role="status" aria-live="polite"></p><div class="ttTrack" aria-hidden="true"><i id="ttBar"></i></div><button id="ttDone" class="cta" data-i="ttDone"></button></div></div>
+<div id="raceNet" role="status" aria-live="polite" hidden></div>
 <div id="ctl"><button id="pauseB" data-i="pause"></button><button id="exitB" data-i="exit"></button></div>
 <div id="pauseOv"><div class="pbox"><h2 data-i="paused"></h2><div id="pauseCd" class="huge"></div><div id="pauseBtns"><button id="resumeB" class="cta" data-i="resume"></button><button id="exitB2" class="cta ghostx" data-i="exit"></button></div></div></div>
-<button id="quit" hidden></button><script src="data.js?v=9"></script><script src="data_en.js?v=9"></script><script src="ages.js?v=9"></script><script src="holidays.js?v=9"></script><script src="content.js?v=9"></script><script src="pay.js?v=9"></script><script src="app.js?v=9"></script><script src="race.js?v=9"></script></body></html>
+<button id="quit" hidden></button><script src="data.js?v=10"></script><script src="data_en.js?v=10"></script><script src="ages.js?v=10"></script><script src="holidays.js?v=10"></script><script src="content.js?v=10"></script><script src="content2.js?v=10"></script><script src="pay.js?v=10"></script><script src="app.js?v=10"></script><script src="race.js?v=10"></script></body></html>
